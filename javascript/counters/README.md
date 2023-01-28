@@ -1,3 +1,16 @@
+# Solution
+
+Go to the [SOLUTION](SOLUTION.md) and see the rationale for the solution.
+
+Run the code:
+
+```
+yarn install
+yarn start
+```
+
+Also, there is a commit history for each stage.
+
 # App Counter
 
 Hi and welcome dear candidate, before anything, we value your time and we don't want you to spend a lot of time working on this. We prepared an small exercise that is divided in stages. Book only a couple of hours of your time and complete all the stages you can. Don't worry if you can't complete everything, this won't be taken in consideration. During the interview we'll discuss, and refactor this kata.
