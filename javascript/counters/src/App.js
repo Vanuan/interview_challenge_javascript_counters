@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 
 const data = [
   { id: 1, value: 0 },
@@ -7,17 +7,17 @@ const data = [
 ];
 
 const Counter = React.memo((props) => {
-  const { id, initialValue, onChange } = props;
+  const { initialValue, onChange } = props;
   const [value, setValue] = useState(initialValue);
 
   const handleIncrement = () => {
     setValue(value + 1);
-    onChange(id, value + 1);
+    onChange(value + 1);
   };
 
   const handleDecrement = () => {
     setValue(value - 1);
-    onChange(id, value - 1);
+    onChange(value - 1);
   };
 
   return (
@@ -45,14 +45,18 @@ function App () {
     )
   }, []);
 
+  const counterChangeHandlers = useMemo(() => counters.reduce((acc, counter) => {
+    acc[counter.id] = (value) => handleCounterChange(counter.id, value);
+    return acc;
+  }, {}), counters.map((counter) => counter.id));
+
   return (
     <div>
       {counters.map((counter) => (
         <Counter
           key={counter.id}
-          id={counter.id}
           initialValue={counter.value}
-          onChange={handleCounterChange}
+          onChange={counterChangeHandlers[counter.id]}
         />
       ))}
     </div>
