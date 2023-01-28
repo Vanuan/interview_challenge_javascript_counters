@@ -6,7 +6,7 @@ const data = [
   { id: 3, value: 0 },
 ];
 
-function Counter(props) {
+const Counter = React.memo((props) => {
   const { id, initialValue, onChange } = props;
   const [value, setValue] = useState(initialValue);
 
@@ -29,24 +29,25 @@ function Counter(props) {
       </div>
     </div>
   );
-}
+});
 
-function App() {
+function App () {
   const [counters, setCounters] = useState(data);
 
-  const handleCounterChange = useCallback((id, value)  => {
-    const updatedCounters = counters.map((counter) => {
-      if (counter.id === id) {
-        return { ...counter, value };
-      }
-      return counter;
-    });
-    setCounters(updatedCounters);
-  }, [counters]);
+  const handleCounterChange = useCallback((id, value) => {
+    setCounters((prevCounters) =>
+      prevCounters.map(counter => {
+        if (counter.id === id) {
+          return { ...counter, value };
+        }
+        return counter;
+      })
+    )
+  }, []);
 
   return (
     <div>
-      {data.map((counter) => (
+      {counters.map((counter) => (
         <Counter
           key={counter.id}
           id={counter.id}
@@ -56,6 +57,6 @@ function App() {
       ))}
     </div>
   );
-}
+};
 
 export default App;
