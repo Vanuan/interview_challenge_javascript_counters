@@ -32,10 +32,17 @@ function Counter(props) {
 }
 
 function App() {
-  const handleCounterChange = useCallback((id, value) => {
-    data.find((counter) => counter.id === id).value = value;
-    console.log(data);
-  }, []);
+  const [counters, setCounters] = useState(data);
+
+  const handleCounterChange = useCallback((id, value)  => {
+    const updatedCounters = counters.map((counter) => {
+      if (counter.id === id) {
+        return { ...counter, value };
+      }
+      return counter;
+    });
+    setCounters(updatedCounters);
+  }, [counters]);
 
   return (
     <div>
