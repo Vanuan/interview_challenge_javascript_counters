@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useMemo } from "react";
-import styled from "styled-components";
+import React, { useState, useCallback, useMemo } from 'react';
+import styled from 'styled-components';
 
 const data = [
   { id: 1, value: 0 },
@@ -15,7 +15,6 @@ const headingBgColor = '#00a896';
 const totalBgColor = '#44515b';
 const incrementBgColor = '#00b440';
 const decrementBgColor = '#ff0053';
-
 
 const AppContainer = styled.div`
   margin: ${spacing};
@@ -98,7 +97,7 @@ const DecrementButton = styled(CounterButton)`
   color: white;
 `;
 
-const Counter = React.memo((props) => {
+const Counter = React.memo(function Counter(props) {
   const { initialValue, onChange } = props;
   const [value, setValue] = useState(initialValue);
 
@@ -116,35 +115,49 @@ const Counter = React.memo((props) => {
     <CounterContainer>
       <CounterValue data-testid="counter-value">{value}</CounterValue>
       <CounterButtonContainer>
-        <IncrementButton data-testid="increment-button" onClick={handleIncrement}>+</IncrementButton>
-        <DecrementButton data-testid="decrement-button" onClick={handleDecrement}>&minus;</DecrementButton>
+        <IncrementButton
+          data-testid="increment-button"
+          onClick={handleIncrement}
+        >
+          +
+        </IncrementButton>
+        <DecrementButton
+          data-testid="decrement-button"
+          onClick={handleDecrement}
+        >
+          &minus;
+        </DecrementButton>
       </CounterButtonContainer>
     </CounterContainer>
   );
 });
 
-function App () {
+function App() {
   const [counters, setCounters] = useState(data);
   const sum = useMemo(
-    () => counters.reduce((acc, {value}) => acc + value, 0),
-    counters.map(c => c.value)
+    () => counters.reduce((acc, { value }) => acc + value, 0),
+    counters.map((c) => c.value),
   );
 
   const handleCounterChange = useCallback((id, value) => {
     setCounters((prevCounters) =>
-      prevCounters.map(counter => {
+      prevCounters.map((counter) => {
         if (counter.id === id) {
           return { ...counter, value };
         }
         return counter;
-      })
-    )
+      }),
+    );
   }, []);
 
-  const counterChangeHandlers = useMemo(() => counters.reduce((acc, counter) => {
-    acc[counter.id] = (value) => handleCounterChange(counter.id, value);
-    return acc;
-  }, {}), counters.map((counter) => counter.id));
+  const counterChangeHandlers = useMemo(
+    () =>
+      counters.reduce((acc, counter) => {
+        acc[counter.id] = (value) => handleCounterChange(counter.id, value);
+        return acc;
+      }, {}),
+    counters.map((counter) => counter.id),
+  );
 
   return (
     <AppContainer>
@@ -161,6 +174,6 @@ function App () {
       <Total data-testid="sum-element">Total count: {sum}</Total>
     </AppContainer>
   );
-};
+}
 
 export default App;
