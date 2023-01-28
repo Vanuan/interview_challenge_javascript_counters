@@ -335,7 +335,6 @@ const DecrementButton = styled(CounterButton)`
   background-color: ${decrementBgColor};
   color: white;
 `;
-```
 
 const App = () => {
   return (
@@ -368,11 +367,9 @@ const App = () => {
     </AppContainer>
   );
 }
-
 ```
 
 As a result here's a screenshot:
 
 ![screenshot](screenshot.png)
-
 
