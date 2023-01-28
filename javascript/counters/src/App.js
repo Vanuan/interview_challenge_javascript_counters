@@ -33,6 +33,10 @@ const Counter = React.memo((props) => {
 
 function App () {
   const [counters, setCounters] = useState(data);
+  const sum = useMemo(
+    () => counters.reduce((acc, {value}) => acc + value, 0),
+    counters.map(c => c.value)
+  );
 
   const handleCounterChange = useCallback((id, value) => {
     setCounters((prevCounters) =>
@@ -59,6 +63,7 @@ function App () {
           onChange={counterChangeHandlers[counter.id]}
         />
       ))}
+      <b>{sum}</b>
     </div>
   );
 };
