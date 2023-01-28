@@ -373,3 +373,10 @@ As a result here's a screenshot:
 
 ![screenshot](screenshot.png)
 
+### Bonus
+
+There are also tests in `App.test.js` file:
+
+```
+yarn test
+```

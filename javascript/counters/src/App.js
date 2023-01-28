@@ -114,10 +114,10 @@ const Counter = React.memo((props) => {
 
   return (
     <CounterContainer>
-      <CounterValue>{value}</CounterValue>
+      <CounterValue data-testid="counter-value">{value}</CounterValue>
       <CounterButtonContainer>
-        <IncrementButton onClick={handleIncrement}>+</IncrementButton>
-        <DecrementButton onClick={handleDecrement}>&minus;</DecrementButton>
+        <IncrementButton data-testid="increment-button" onClick={handleIncrement}>+</IncrementButton>
+        <DecrementButton data-testid="decrement-button" onClick={handleDecrement}>&minus;</DecrementButton>
       </CounterButtonContainer>
     </CounterContainer>
   );
@@ -158,7 +158,7 @@ function App () {
           />
         ))}
       </CountersContainer>
-      <Total>Total count: {sum}</Total>
+      <Total data-testid="sum-element">Total count: {sum}</Total>
     </AppContainer>
   );
 };
